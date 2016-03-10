@@ -13,7 +13,7 @@
 #   standdings alw|alc|ale|nlw|nlc|nle - gives you divisional standings
 #
 # Author:
-#	craigrow
+#   craigrow
 #   craigrow@hotmail.com
 
 module.exports = (robot) ->
@@ -61,9 +61,9 @@ module.exports = (robot) ->
   robot.respond /standings (.*)|standings/i, (msg) ->
     division = msg.match[1]
     msg.http('https://erikberg.com/mlb/standings.json')
+      .header('User-Agent', 'hubot-mlbot (craigrow@hotmail.com)')
       .get() (err, res, body) ->
         data = JSON.parse(body)
-        msg.send JSON.stringify(body)
         standings = getStandings(data, division)
 
         msg.send standings

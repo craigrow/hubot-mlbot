@@ -1,7 +1,7 @@
 {
   "name": "hubot-mlbot",
   "description": "A hubot that knows what happened with your favorite MLB team ",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "author": "Craig Rowland <craigrow@hotmail.com>",
   "license": "MIT",
 
