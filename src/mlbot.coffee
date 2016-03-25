@@ -13,7 +13,7 @@
 #   standdings alw|alc|ale|nlw|nlc|nle - gives you divisional standings
 #
 # Author:
-#   craigrow
+#	craigrow
 #   craigrow@hotmail.com
 
 module.exports = (robot) ->
@@ -128,7 +128,7 @@ module.exports = (robot) ->
       city = "Cincinnati"
     else if team is "Cubs" or team is "cubs" or team is "cubbies" or team is "Cubbies"
       city = "Chi Cubs"
-    else if team is "Brewers" or "brewers"
+    else if team is "Brewers" or team is "brewers"
       city = "Milwaukee"
     else if team is "Cardinals" or team is "cardinals" or team is "cards" or team is "Cards"
       city = "St. Louis"
@@ -142,7 +142,7 @@ module.exports = (robot) ->
       city = "Atlanta"
     else if team is "Marlins" or team is "marlins"
       city = "Miami"
-    else if team is "Nationals" or "nationals" or "Nats" or "nats"
+    else if team is "Nationals" or team is "nationals" or team is "Nats" or team is "nats"
       city = "Washington"
     else if team is "Rays" or team is "rays"
       city = "Tampa Bay"
