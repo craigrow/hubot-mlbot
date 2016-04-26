@@ -17,6 +17,7 @@
 # craigrow@hotmail.com
 
 module.exports = (robot) ->
+	team = ''
 	robot.hear /how (about|bout) (them|those) (.*)/i, (msg) ->
 		# Find the team's city
 		team = msg.match[3]
@@ -133,9 +134,91 @@ module.exports = (robot) ->
 
 				msg.send standings
 
+	robot.hear /what about yesterday/i, (msg) ->
+		msg.send team
+		day = getYesterday()
+		month = getMonth()
+		year = getYear()
+
+		url = 'http://mlb.mlb.com/gdcross/components/game/mlb/year_' + year + '/month_' + month + '/day_' + day + '/master_scoreboard.json'
+
+		getGame team, url, (myGame) ->
+			city = getCity(team)
+			getHomeAway myGame, city, (homeAway) ->
+				getOpponentTeam myGame, city, (opponentTeam) ->
+					getMyTeamScore myGame, city, homeAway, (myTeamScore) ->
+						getOpponentTeamScore myGame, city, homeAway, (opponentTeamScore) ->
+							if myTeamScore > opponentTeamScore
+								msg.send 'They beat ' + opponentTeam + ' yesterday!'
+							else if myTeamScore < opponentTeamScore
+								msg.send 'They lost to ' + opponentTeam + ' yesterday :-('
+
+	getOpponentTeamScore = (myGame, city, homeAway, callback) ->
+		res = ''
+		if homeAway is 'away'
+			res = parseInt(myGame.linescore.r.home)
+		else if homeAway is 'home'
+			res = parseInt(myGame.linescore.r.away)
+		callback(res)
+
+	getMyTeamScore = (myGame, city, homeAway, callback) ->
+		res = ''
+		if homeAway is 'home'
+			res = parseInt(myGame.linescore.r.home, 10)
+		else if homeAway is 'away' 
+			res = parseInt(myGame.linescore.r.away, 10)
+		callback(res)
+
+	getOpponentTeam = (myGame, city, callback) ->
+		res = ''
+		if myGame.home_team_city is city
+			res = myGame.away_team_city
+		else if myGame.away_team_city is city
+			res = myGame.home_team_city
+		else
+			res = 'error'
+		callback(res)
+
+	getHomeAway = (myGame, city, callback) ->
+		res = ''
+		if myGame.home_team_city is city
+			res = 'home'
+		else if myGame.away_team_city is city
+			res = 'away'
+		else
+			res = 'error'
+		callback(res)
+
+	getGame = (team, url, callback) ->
+		msg = ''
+		robot.http(url)
+			.get() (err, res, body) ->
+				gameData = JSON.parse(body)
+
+				city = getCity(team)
+				gameNumber = 0
+				while gameData.data.games.game[gameNumber].home_team_city != city & gameData.data.games.game[gameNumber].away_team_city != city
+					gameNumber++
+					if gameData.data.games.game[gameNumber] is undefined
+						break
+				if gameData.data.games.game[gameNumber] is undefined
+					myGame = 'They did not play yesterday'
+				else
+					myGame = gameData.data.games.game[gameNumber]
+
+				msg = myGame
+				callback(msg)
+
 	getDay = () ->
 		today = new Date
 		dd = today.getDate()
+		if dd < 10
+			dd = '0' + dd
+		else dd
+
+	getYesterday = () ->
+		yesterday = new Date
+		dd = yesterday.getDate() - 1
 		if dd < 10
 			dd = '0' + dd
 		else dd

@@ -21,19 +21,21 @@ Then add **hubot-mlbot** to your `external-scripts.json`:
 ## Sample Interaction
 
 ```
-mlbot> mlbot how bout those mariners
-mlbot> The mariners won yesterday
-San Diego 0 at Seattle 7
-mlbot> mlbot how bout them sox
-mlbot> The sox lost yesterday
-Minnesota 7 at Boston 4
-mlbot standings alw
+how bout those mariners
+mlbot> The mariners are leading Houston in the Middle of inning 8: 2-3
+what about yesterday
+mlbot> mariners
+They beat LA Angels yesterday!
+how bout those sox
+mlbot> The sox beat Atlanta today! 1-0
+standings alw
+mlbot> mlbot standings alw
 mlbot>
 American League West
 =======================
-Rangers          88-74
-Astros   		 86-76
-Angels   		 85-77
-Mariners         76-86
-Athletics        68-94
+Athletics        10-10
+Rangers          10-10
+Mariners         9-9
+Angels   		 8-11
+Astros   		 6-13
 ```
