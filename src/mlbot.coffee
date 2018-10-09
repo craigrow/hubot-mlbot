@@ -10,7 +10,7 @@
 # Commands:
 #   how bout|about them|those <team name> - tells you how your team did yesterday
 #   standings - gives you the standings for each MLB division
-#   standdings alw|alc|ale|nlw|nlc|nle - gives you divisional standings
+#   standings alw|alc|ale|nlw|nlc|nle - gives you divisional standings
 #
 # Author:
 # craigrow
