@@ -20,7 +20,6 @@
   },
 
   "peerDependencies": {
-    "hubot": "2.x"
   },
 
   "devDependencies": {
@@ -31,7 +30,6 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-mocha-test": "~0.12.7",
     "grunt-release": "~0.11.0",
-    "hubot": "2.x",
     "matchdep": "~0.3.0",
     "mocha": "^2.1.0",
     "sinon": "^1.13.0",
